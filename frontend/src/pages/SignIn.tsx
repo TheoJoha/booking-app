@@ -4,7 +4,7 @@ import * as apiClient from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 
-export type SingInFormData = {
+export type SignInFormData = {
     email: string;
     password: string;
 }
@@ -17,11 +17,11 @@ const SignIn = () => {
         register, 
         formState: {errors},
         handleSubmit
-    } = useForm<SingInFormData>();
+    } = useForm<SignInFormData>();
 
     const mutation = useMutation(apiClient.SignIn, {
         onSuccess: async () => {
-            showToast({message: "Sign In Succesful!", type: "SUCCESS"})
+            showToast({message: "Sign In Successful!", type: "SUCCESS"})
             await queryClient.invalidateQueries("validateToken")
             navigate("/")
         }, onError: (error: Error)=>{
