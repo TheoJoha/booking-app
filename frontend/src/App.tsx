@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './layouts/Layout'
 import {BrowserRouter as Router} from "react-router-dom"
 import Register from './pages/Register'
+import SignIn from './pages/SignIn'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         </Layout>}/>
         <Route path="/register" element={<Layout><Register /></Layout>} />
         <Route path="*" element={<Navigate to ="/" />}/>
+        <Route path="/sign-in" element={<Layout><SignIn /></Layout>} />
       </Routes>
     </Router>
   )
