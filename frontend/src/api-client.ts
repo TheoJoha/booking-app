@@ -22,6 +22,7 @@ export const register = async (formData: RegisterFormData) => {
 
 export const SignIn = async (formData: SignInFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        mode: 'no-cors',
         method: "POST",
         credentials: "include",
         headers: {
