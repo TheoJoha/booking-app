@@ -22,13 +22,10 @@ export const register = async (formData: RegisterFormData) => {
 
 export const signIn = async (formData: SignInFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        mode: 'no-cors',
         method: "POST",
         credentials: "include",
         headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
         },
         body: JSON.stringify(formData)
     })
@@ -42,7 +39,6 @@ export const signIn = async (formData: SignInFormData) => {
 
 export const validateToken = async () => {
     const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
-        mode: 'no-cors',
         credentials: "include"
     })
 
@@ -55,12 +51,11 @@ export const validateToken = async () => {
 
 export const signOut = async () => {
     const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
-        mode: 'no-cors',
         credentials: "include",
         method: "POST"
     })
 
     if (!response.ok) {
-        throw new Error("Error during signout")
+        throw new Error("Error during sign out")
     }
 }
