@@ -57,4 +57,15 @@ router.post("/",
         }
     })
 
-    export default router
+router.get("/", verifyToken, async (req: Request, res: Response)=>{
+    
+
+    try {
+        const hotels = await Hotel.find({userId: req.userId})
+        res.json(hotels)
+    } catch (error) {
+        res.status(500).json({message: "Error feetching hotels"})
+    }
+})
+
+export default router
