@@ -7,16 +7,16 @@ import { BiHotel, BiMoney, BiStar } from "react-icons/bi"
 const MyHotels = () => {
 
     const { data: hotelData } = useQuery("fetchMyHotels", apiClient.fetchMyHotels, {
-        onError: () => {
-
-        }
+        onError: () => { }
     })
 
-    if(!hotelData) {
+    if (!hotelData) {
         return <span>
             No hotels found
         </span>
     }
+    console.log(hotelData)
+
 
     return (
         <div className="space-y-5">
@@ -29,7 +29,7 @@ const MyHotels = () => {
                 </Link>
             </span>
             <div className="grid grid-cols-1 gap-8">
-                {hotelData?.map((hotel)=>(
+                {hotelData && Array.isArray(hotelData) && hotelData.map((hotel) => (
                     <div key={hotel._id} className="flex flex-col justify-between border border-slate-300 rounded-lg p-8 gap-5">
                         <h2 className="text-2xl font-bold" >{hotel.name}</h2>
                         <div className="whitesspace-pre-line">
@@ -59,7 +59,7 @@ const MyHotels = () => {
                         </div>
                         <span className="flex justify-end">
                             <Link to={`/edit-hotel/${hotel._id}`}
-                            className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500"
+                                className="flex bg-blue-600 text-white text-xl font-bold p-2 hover:bg-blue-500"
                             >
                                 View Details
                             </Link>

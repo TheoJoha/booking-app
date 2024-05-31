@@ -4,6 +4,8 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestSection from "./GuestSection";
 import ImagesSection from "./ImagesSection";
+import { HotelType } from "../../../../backend/src/shared/types";
+import { useEffect } from "react";
 
 export type HotelFormData = {
     name: string;
@@ -15,21 +17,27 @@ export type HotelFormData = {
     starRating: number;
     facilities: string[];
     imageFiles: FileList;
+    imageUrls: string[];
     adultCount: number;
     childCount: number;
 }
 
 type Props = {
-    onSave: (hotelFormData: FormData)=> void;
+    hotel: HotelType
+    onSave: (hotelFormData: FormData) => void;
     isLoading: boolean;
 }
 
-const ManageHotelForm = ({isLoading, onSave}: Props) => {
+const ManageHotelForm = ({ isLoading, hotel, onSave }: Props) => {
 
     const formMethods = useForm<HotelFormData>()
-    const {handleSubmit} = formMethods;
+    const { handleSubmit, reset } = formMethods;
 
-    const onSubmit = handleSubmit((formDataJson: HotelFormData)=>{
+    useEffect(()=>{
+        reset(hotel)
+    },[hotel, reset])
+
+    const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
         const formData = new FormData();
         formData.append("name", formDataJson.name)
         formData.append("city", formDataJson.city)
@@ -41,11 +49,11 @@ const ManageHotelForm = ({isLoading, onSave}: Props) => {
         formData.append("adultCount", formDataJson.adultCount.toString())
         formData.append("childCount", formDataJson.childCount.toString())
 
-        formDataJson.facilities.forEach((facility, index)=>{
+        formDataJson.facilities.forEach((facility, index) => {
             formData.append(`facilities[${index}]`, facility)
         })
 
-        Array.from(formDataJson.imageFiles).forEach((imageFile)=>{
+        Array.from(formDataJson.imageFiles).forEach((imageFile) => {
             formData.append("imageFiles", imageFile)
         })
 
@@ -61,10 +69,10 @@ const ManageHotelForm = ({isLoading, onSave}: Props) => {
                 <GuestSection />
                 <ImagesSection />
                 <span className="flex justify-end">
-                    <button 
-                    disabled={isLoading}
-                    type="submit" className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl disabled:bg-gray-500">
-                        {isLoading? "Saving..." : "Save"}
+                    <button
+                        disabled={isLoading}
+                        type="submit" className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl disabled:bg-gray-500">
+                        {isLoading ? "Saving..." : "Save"}
                     </button>
                 </span>
             </form>
