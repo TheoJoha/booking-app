@@ -17,12 +17,12 @@ const AddHotel = () => {
     const handleSave = (hotelFormData: FormData) => {
         mutate(hotelFormData)
     }
-    
+
     return (
         <ManageHotelForm
-           
             isLoading={isLoading}
-            onSave={handleSave} />
+            onSave={handleSave}
+        />
     )
 }
 

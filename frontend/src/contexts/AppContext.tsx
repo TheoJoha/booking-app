@@ -19,7 +19,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
 
     const [toast, setToast] = useState<ToastMessage | undefined>(undefined)
 
-    const {isError} = useQuery("validateToken", apiClient.validateToken, {
+    const { isError } = useQuery("validateToken", apiClient.validateToken, {
         retry: false,
     })
 
@@ -30,7 +30,11 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
             },
             isLoggedIn: !isError
         }} >
-            {toast && (<Toast message={toast.message} type={toast.type} onClose={() => setToast(undefined)} />)}
+            {toast && (<Toast
+                message={toast.message}
+                type={toast.type}
+                onClose={() => setToast(undefined)}
+            />)}
             {children}
         </AppContext.Provider>
     )

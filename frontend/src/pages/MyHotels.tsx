@@ -15,7 +15,7 @@ const MyHotels = () => {
             No hotels found
         </span>
     }
-    console.log(hotelData)
+    // console.log(hotelData)
 
 
     return (

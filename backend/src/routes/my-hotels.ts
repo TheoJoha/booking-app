@@ -73,6 +73,19 @@ router.get("/:id", verifyToken, async (req: Request, res: Response) => {
     }
 })
 
+router.get("/:id", verifyToken, async (req: Request, res: Response) => {
+    const id = req.params.id.toString()
+    try {
+        const hotel = await Hotel.find({
+            _id: id,
+            userId: req.userId,
+        })
+        res.json(hotel)
+    } catch (e) {
+        res.status(500).json({message: "Error fetching hotels"})
+    }
+})
+
 router.put("/:hotelId", verifyToken, upload.array("imageFiles"), async (req: Request, res: Response) => {
     try {
         const updatedHotel: HotelType = req.body;
