@@ -10,6 +10,7 @@ import MyHotels from './pages/MyHotels'
 import EditHotel from './pages/EditHotel'
 import Search from './pages/Search'
 import Detail from './pages/Detail'
+import Booking from './pages/Booking'
 
 function App() {
 
@@ -31,6 +32,13 @@ function App() {
         <Route path="*" element={<Navigate to ="/" />}/>
         <Route path="/sign-in" element={<Layout><SignIn /></Layout>} />
         {isLoggedIn && <>
+          <Route path="/hotel/:hotelId/booking" 
+          element={
+            <Layout>
+              <Booking />
+            </Layout>
+          }
+          />
           <Route path="/add-hotel" 
           element={
             <Layout>

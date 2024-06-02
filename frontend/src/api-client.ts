@@ -1,8 +1,19 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import {HotelSearchResponse, HotelType} from "../../backend/src/shared/types"
+import {HotelSearchResponse, HotelType, UserType} from "../../backend/src/shared/types"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+    const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+        credentials: "include"
+    })
+    if (!response.ok) {
+        throw new Error("Error fetching user")
+    }
+
+    return response.json()
+}
 
 export const register = async (formData: RegisterFormData) => {
     const response = await fetch(`${API_BASE_URL}/api/users/register`, {
@@ -84,9 +95,14 @@ export const fetchMyHotels = async (): Promise<HotelType[]> => {
         throw new Error("Error fetching hotels")
     }
 
+    // return response.json()
+
     const obj = await response.json()
     console.log(obj)
-    return [obj] // passing as array of object(s)instead of an obj
+    /* if (obj == null) {
+        return []
+    } */
+    return obj // passing as array of object(s)instead of an obj
 }
 
 export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
@@ -132,7 +148,7 @@ export type SearchParams = {
 export const searchHotels = async (searchParams: SearchParams): Promise<HotelSearchResponse> =>{
     const queryParams = new URLSearchParams()
     queryParams.append("destination", searchParams.destination || "")
-    queryParams.append("checkin", searchParams.checkIn || "")
+    queryParams.append("checkIn", searchParams.checkIn || "")
     queryParams.append("checkOut", searchParams.checkOut || "")
     queryParams.append("adultCount", searchParams.adultCount || "")
     queryParams.append("childCount", searchParams.childCount || "")
@@ -163,3 +179,11 @@ export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
 
     return response.json()
 }
+
+export const fetchHotels = async (): Promise<HotelType[]> => {
+    const response = await fetch(`${API_BASE_URL}/api/hotels`);
+    if (!response.ok) {
+      throw new Error("Error fetching hotels");
+    }
+    return response.json();
+  };

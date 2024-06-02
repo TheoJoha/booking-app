@@ -29,7 +29,10 @@ router.get("/search", async (req: Request, res: Response) => {
         const pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1")
         const skip = (pageNumber - 1) * pageSize;
 
-        const hotels = await Hotel.find(query).sort(sortOptions).skip(skip).limit(pageSize)
+        const hotels = await Hotel.find(query)
+            .sort(sortOptions)
+            .skip(skip)
+            .limit(pageSize)
 
         const total = await Hotel.countDocuments()
 
@@ -53,8 +56,8 @@ router.get("/:id", [
     param("id").notEmpty().withMessage("Hotel ID is required")
 ], async (req: Request, res: Response) => {
     const errors = validationResult(req)
-    if(!errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()})
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
     }
 
     const id = req.params.id.toString()
@@ -62,9 +65,9 @@ router.get("/:id", [
     try {
         const hotel = await Hotel.findById(id)
         res.json(hotel)
-    } catch(error) {
+    } catch (error) {
         console.log(error)
-        res.status(500).json({message: "Error fetching hotel"})
+        res.status(500).json({ message: "Error fetching hotel" })
     }
 })
 
@@ -114,8 +117,6 @@ const constructSearchQuery = (queryParams: any) => {
             $lte: parseInt(queryParams.maxPrice).toString()
         }
     }
-
-
 
     return constructedQuery;
 }

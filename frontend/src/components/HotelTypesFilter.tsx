@@ -1,4 +1,5 @@
 import { hotelTypes } from "../config/hotel.options-config";
+import {nanoid} from "nanoid"
 
 type Props = {
     selectedHotelTypes: string[];
@@ -11,6 +12,7 @@ const HotelTypesFilter = ({ selectedHotelTypes, onChange }: Props) => {
             <h4 className="text-md font-semibold mb-2">Hotel Type</h4>
             {hotelTypes.map((hotelType) => (
                 <label
+                    key={nanoid()}
                     className="flex-items-center space-x-2">
                     <input 
                     type="checkbox" 

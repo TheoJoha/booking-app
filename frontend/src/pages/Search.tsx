@@ -58,6 +58,10 @@ const Search = () => {
         )
     }
 
+    if (hotelData) {
+        console.log(hotelData)
+    }
+
     return (
         <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
             <div className="rounded-lg border border-slate-300 p-5 h-fit sticky top-10">
@@ -98,6 +102,7 @@ const Search = () => {
                                 <option value="pricePerNightDesc">Price Per Night (Higgh to low)</option>
                             </select>
                         </div>
+                        
                         {hotelData?.data.map((hotel, index) => (
                             <SearchResultsCard key={index} hotel={hotel} />
                         ))}

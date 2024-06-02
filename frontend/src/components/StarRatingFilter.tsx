@@ -1,3 +1,5 @@
+import {nanoid} from "nanoid"
+
 type Props = {
     selectedStars: string[];
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,6 +11,7 @@ const StarRatingFilter = ({ selectedStars, onChange }: Props) => {
             <h4 className="text-md font-semibold mb-2">Property Rating</h4>
             {["5", "4", "3", "2", "1"].map((star) => (
                 <label
+                    key={nanoid()}
                     className="flex-items-center space-x-2">
                     <input 
                     type="checkbox" 

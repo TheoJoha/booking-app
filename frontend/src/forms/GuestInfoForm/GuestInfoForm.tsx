@@ -14,7 +14,6 @@ type GuestInfoFormData = {
     checkOut: Date;
     childCount: number;
     adultCount: number,
-
 }
 
 const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
@@ -46,14 +45,22 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
     maxDate.setFullYear(maxDate.getFullYear() + 1)
 
     const onSignInClick = (data: GuestInfoFormData) => {
-        search.saveSearchValues("", data.checkIn, data.checkOut, data.adultCount, data.childCount)
+        search.saveSearchValues("",
+            data.checkIn,
+            data.checkOut,
+            data.adultCount,
+            data.childCount)
         navigate("/sign-in", {
             state: { from: location }
         })
     }
 
     const onSubmit = (data: GuestInfoFormData) => {
-        search.saveSearchValues("", data.checkIn, data.checkOut, data.adultCount, data.childCount)
+        search.saveSearchValues("",
+            data.checkIn,
+            data.checkOut,
+            data.adultCount,
+            data.childCount)
         navigate(`/hotel/${hotelId}/booking`)
     }
 
@@ -64,6 +71,7 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
                 <div className="grid grid-cols-1 gap-4 items-center">
                     <div>
                         <DatePicker
+                            required
                             selected={checkIn}
                             onChange={(date) => setValue("checkIn", date as Date)}
                             selectsStart
@@ -78,8 +86,9 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
                     </div>
                     <div>
                         <DatePicker
+                            required
                             selected={checkOut}
-                            onChange={(date) => setValue("checkIn", date as Date)}
+                            onChange={(date) => setValue("checkOut", date as Date)}
                             selectsStart
                             startDate={checkIn}
                             endDate={checkOut}
@@ -93,7 +102,9 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
                     <div className="flex bg-white px-2 py-1 gap-2">
                         <label className="items-center flex">
                             Adults:
-                            <input className="w-full p-1 focus:outline-none font-bold" type="number"
+                            <input
+                                className="w-full p-1 focus:outline-none font-bold"
+                                type="number"
                                 min={1}
                                 max={20}
                                 {...register("adultCount", {
