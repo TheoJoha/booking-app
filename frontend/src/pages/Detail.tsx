@@ -2,6 +2,7 @@ import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 import * as apiClient from "./../api-client"
 import { AiFillStar } from "react-icons/ai"
+import GuestInfoForm from "../forms/GuestInfoForm/GuestInfoForm"
 
 
 const Detail = () => {
@@ -47,7 +48,7 @@ const Detail = () => {
                     {hotel.description}
                 </div>
                 <div className="h-fit" >
-                    {/* <GuestInfo /> */}
+                    <GuestInfoForm pricePerNight={hotel.pricePerNight} hotelId={hotel._id} />
                 </div>
             </div>
         </div>

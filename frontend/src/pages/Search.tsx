@@ -86,7 +86,8 @@ const Search = () => {
                                 {search.destination ? ` in ${search.destination}` : ""}
                             </span>
                             {/* sort options */}
-                            <select 
+                            <select
+                            title="select hotel" 
                             onChange={(event) => setSortOption(event.target.value)}
                             value={sortOption}
                             className="p-2 border rounded-md"
