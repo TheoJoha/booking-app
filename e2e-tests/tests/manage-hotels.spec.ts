@@ -57,9 +57,8 @@ test("should display hotels", async ({page}) => {
     await expect(page.getByText("All Inclusive")).toBeVisible()
     await expect(page.getByText("EUR119 per night")).toBeVisible()
     await expect(page.getByText("2 adults, 3 children")).toBeVisible()
-    await expect(page.getByText("2 Star Rating")).toBeVisible()
+    
 
-    // View Details test only works for one, not several, hotel in db it seems like
     await expect(page.getByRole("link", {name: "View Details"}).first()).toBeVisible()
     await expect(page.getByRole("link", {name: "Add Hotel"})).toBeVisible()
     

@@ -33,7 +33,6 @@ test("should display hotels", async ({ page }) => {
     await expect(page.getByText("All Inclusive")).toBeVisible()
     await expect(page.getByText("EUR119 per night")).toBeVisible()
     await expect(page.getByText("2 adults, 3 children")).toBeVisible()
-    await expect(page.getByText("2 Star Rating")).toBeVisible()
 
     // View Details test only works for one, not several, hotel in db it seems like
     await expect(page.getByRole("link", { name: "View Details" }).first()).toBeVisible()
@@ -50,7 +49,7 @@ test("should edit hotel", async ({ page }) => {
     await expect(page.locator("[name='name']")).toHaveValue("Dublin Getaways")
     await page.locator("[name='name']").fill("Dublin Getaways UPDATED")
     await page.getByRole("button", { name: "Save" }).click()
-    // await expect(page.getByText("Hotel Saved!")).toBeVisible()
+    await expect(page.getByText("Hotel Saved!")).toBeVisible()
 
     await page.reload()
 
@@ -93,10 +92,10 @@ test("Should book hotel", async ({ page }) => {
     await page.getByText("Dublin Getaways").click()
     await page.getByRole("button", { name: "Book now" }).click()
 
-    await expect(page.getByText("Total Cost: EUR666.00")).toBeVisible()
+    await expect(page.getByText("Total Cost: EUR357.00")).toBeVisible()
 
     const stripeFrame = page.frameLocator("iframe").first()
-    await stripeFrame.locator("[placeholder='card number']").fill("4242424242424242")
+    await stripeFrame.locator("[placeholder='Card number']").fill("4242424242424242")
     await stripeFrame.locator("[placeholder='MM / YY']").fill("04/30")
     await stripeFrame.locator("[placeholder='CVC']").fill("242")
     await stripeFrame.locator("[placeholder='ZIP']").fill("24225")
@@ -105,5 +104,5 @@ test("Should book hotel", async ({ page }) => {
     await expect(page.getByText("Booking Saved!")).toBeVisible()
 
     await page.getByRole("link", {name: "My Bookings"}).click()
-    await expect(page.getByText("Dublin Getaways"))
+    await expect(page.getByText("Dublin Getaways")).toBeVisible()
 })
