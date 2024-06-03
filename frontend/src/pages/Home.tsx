@@ -1,6 +1,7 @@
 import { useQuery } from "react-query"
 import * as apiClient from "../api-client"
 import LatestDestinationCard from "../components/LatestDestinationCard";
+import {nanoid} from "nanoid"
 
 const Home = () => {
     const {data: hotels} = useQuery("fetchQuery", () => apiClient.fetchHotels())
@@ -15,12 +16,14 @@ const Home = () => {
             <div className="grid gap-4">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
                     {topRowHotels.map((hotel) => (
-                        <LatestDestinationCard hotel={hotel} />
+                        <LatestDestinationCard key={nanoid()} hotel={hotel} />
                     ))}
                 </div>
                 <div className="grid md-grid-cols-3 gap-4">
                     {bottomRowHotels.map((hotel) => (
-                        <LatestDestinationCard hotel={hotel} />
+                        <LatestDestinationCard 
+                        key={nanoid()}
+                        hotel={hotel} />
                     ))}
                 </div>
             </div>

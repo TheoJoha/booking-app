@@ -8,10 +8,9 @@ const router = express.Router()
 
 router.get("/me", verifyToken, async (req: Request, res: Response)=> {
     const userId = req.userId
-    console.log(userId)
     try {
-        const user = await User.findOne({"userId": userId}).select("-password")
-        console.log(user)
+        const user = await User.findById(userId).select("-password")
+        
         if (!user) {
             return res.status(400).json({message: "User not found"})
         }

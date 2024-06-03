@@ -7,7 +7,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export const fetchCurrentUser = async (): Promise<UserType> => {
     const response = await fetch(`${API_BASE_URL}/api/users/me`, {
-        credentials: "include"
+        credentials: "include",
     })
     if (!response.ok) {
         throw new Error("Error fetching user")
@@ -96,14 +96,9 @@ export const fetchMyHotels = async (): Promise<HotelType[]> => {
         throw new Error("Error fetching hotels")
     }
 
-    // return response.json()
-
     const obj = await response.json()
-    console.log(obj)
-    /* if (obj == null) {
-        return []
-    } */
-    return obj // passing as array of object(s)instead of an obj
+   
+    return obj 
 }
 
 export const fetchMyHotelById = async (hotelId: string): Promise<HotelType> => {
